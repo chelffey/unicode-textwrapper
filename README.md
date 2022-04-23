@@ -7,7 +7,7 @@ This will particularly benefit languages like Chinese, Japanese and Korean which
 ## About East Asian Width
 Asian characters are typically twice as wide as western characters, for reasons of readability and aestheticness. For this reason, Unicode provides an East Asian Width property that specifies how wide a character should be displayed. Additional information about halfwidth and fullwidth forms can be found [here](https://en.wikipedia.org/wiki/Halfwidth_and_fullwidth_forms).
 
-Code that assumes the width of a string is precisely equivalent to the number of characters it contains will not work properly for East Asian langauges.
+Code that assumes the width of a string is equivalent to the number of characters it contains will not work properly for East Asian langauges. This project the East Asian Width property to make appropriate judgements about the length of a string. It is particularly useful for formatting various languages correctly in the terminal.
 
 
 ## Sample Usage
