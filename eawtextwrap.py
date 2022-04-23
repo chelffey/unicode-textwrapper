@@ -1,5 +1,6 @@
 """
 subclass on python textwrap class that implements east asian width wrapping.
+Original class may be found here: https://github.com/python/cpython/blob/3.10/Lib/textwrap.py
 Written in April 2022. Based on the most updated TextWrapper python library 
 class at that point in time. 
 """
@@ -9,7 +10,7 @@ import unicodedata
 
 class EAWTextWrapper(TextWrapper):
 
-    # unicon character widths
+    # unicode character widths
     # full-width characters have a length of 2
     #     half-width characters have a length of 1
     #     reference for unicode East Asian width property:
@@ -31,7 +32,7 @@ class EAWTextWrapper(TextWrapper):
     
     def _eaw_space_left(self, word, space_left):
         """
-        return the index at which all the space_left is filled, 
+        Return the index at which all the space_left is filled, 
         considering east asian width of each character.
         word = input string
         space_left = width, as measured by number of narrow characters
@@ -47,7 +48,7 @@ class EAWTextWrapper(TextWrapper):
         return index
 
     def _wrap_chunks(self, chunks):
-        """ This function is from lib/textwrap.py
+        """ This function is from lib/textwrap.py at https://github.com/python/cpython/blob/3.10/Lib/textwrap.py
         The only change is to use the self._eaw_str_len() function. 
         ---
         _wrap_chunks(chunks : [string]) -> [string]
@@ -155,7 +156,7 @@ class EAWTextWrapper(TextWrapper):
 
 
     def _handle_long_word(self, reversed_chunks, cur_line, cur_len, width):
-        """This function is from lib/textwrap.py
+        """This function is from lib/textwrap.py at https://github.com/python/cpython/blob/3.10/Lib/textwrap.py
         The only change is to use the self._eaw_str_len() function and 
         the self._eaw_space_left() function.
         ---
