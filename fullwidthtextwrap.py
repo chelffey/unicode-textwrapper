@@ -1,12 +1,13 @@
 """
-subclass on python textwrap class that implements full-width wrapping.
-April 2022
+subclass on python textwrap class that implements east asian width wrapping.
+Written in April 2022. Based on the most updated TextWrapper python library 
+class at that point in time. 
 """
 
 from textwrap import TextWrapper
 import unicodedata
 
-class FullWidthTextWrapper(TextWrapper):
+class EAWTextWrapper(TextWrapper):
 
     # unicon character widths
     # full-width characters have a length of 2
@@ -25,25 +26,25 @@ class FullWidthTextWrapper(TextWrapper):
     def _eaw_str_len(self, word):
         """
         length of unicode string considering east asian width of each character
-        """        
-        sum = 0
-        for char in word:
-            sum += self.char_widths[unicodedata.east_asian_width(char)]
-        return sum
+        """
+        return sum(self.char_widths[unicodedata.east_asian_width(char)] for char in word)
     
     def _eaw_space_left(self, word, space_left):
         """
         return the index at which all the space_left is filled, 
-        considering east asian width of each character
+        considering east asian width of each character.
+        word = input string
+        space_left = width, as measured by number of narrow characters
+
         """
-        sum = 0
-        i = 0
+        cur_length = 0
+        index = 0
         for char in word:
-            sum += self.char_widths[unicodedata.east_asian_width(char)]
-            if (sum > space_left):
-                return i
-            i += 1
-        return i
+            cur_length += self.char_widths[unicodedata.east_asian_width(char)]
+            if (cur_length > space_left):
+                return index
+            index += 1
+        return index
 
     def _wrap_chunks(self, chunks):
         """ This function is from lib/textwrap.py
